@@ -1,5 +1,7 @@
 # ElvUI for Project Ascension
 
+[![Documentation](https://img.shields.io/badge/📖_Docs-GitHub_Pages-2ea44f?style=for-the-badge)](https://xurkon.github.io/PA-ElvUI/)
+
 **A comprehensive user interface replacement for World of Warcraft 3.3.5 (WotLK)**
 
 [![Version](https://img.shields.io/badge/version-1.3.3-blue.svg)](https://github.com/Xurkon/PA-ElvUI)
@@ -67,3 +69,5 @@ This is a **monorepo** containing:
 ---
 
 **For issues, please open an issue on this repository.**
+
+[Documentation](docs/index.html)
