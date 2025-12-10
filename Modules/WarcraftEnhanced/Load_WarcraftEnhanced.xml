@@ -1,0 +1,42 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<!-- Localization (English only) -->
+	<Script file="Localization.enUS.lua"/>
+	
+	<!-- Omen Localization (must load before Omen.lua) -->
+	<Script file="Omen_Localization\enUS.lua"/>
+	
+	<!-- Main Module -->
+	<Script file="WarcraftEnhanced.lua"/>
+	<Script file="MinimapButtonGrabber.lua"/>
+	<Script file="ActionbarKeyPress.lua"/>
+	<Script file="Blizzard.lua"/>
+	<Script file="ErrorFrame.lua"/>
+	<Script file="TakeAllMail.lua"/>
+	<Script file="AnimatedAchievementBars.lua"/>
+	<Script file="TooltipIcon.lua"/>
+	<Script file="ItemQualityBorder.lua"/>
+	<Script file="ProgressionInfo.lua"/>
+	
+	<!-- Omen Threat Meter (load after localization) -->
+	<Script file="Omen.lua"/>
+	
+	<!-- TomTom Navigation (loads from standalone TomTom addon) -->
+	<!-- Note: TomTom remains a separate addon, we just integrate its settings -->
+	
+	<!-- AutoQuest -->
+	<Script file="AutoQuest.lua"/>
+	<!-- Babelfish.lua is a build script, not needed in-game -->
+	
+	<!-- Features -->
+	<Script file="UIEnhancements.lua"/>
+	<Script file="LootRollEnhancement.lua"/>
+	<Script file="LeatrixFeatures.lua"/>
+	<Script file="MacroButton.lua"/>
+	
+	<!-- Portal Box -->
+	<Include file="PortalBox.xml"/>
+	
+	<!-- Options (load last) -->
+	<Script file="Options.lua"/>
+</Ui>
+

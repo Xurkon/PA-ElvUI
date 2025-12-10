@@ -1,0 +1,31 @@
+## Interface: 30300
+## Author: Elv, Bunny, Xius
+## Version: 1.3.1
+## Title: |cff1784d1E|r|cffe5e3e3lvUI|r
+## Notes: User Interface replacement AddOn for World of Warcraft.
+## SavedVariables: ElvDB, ElvPrivateDB, EnhancedDB, Omen3DB
+## SavedVariablesPerCharacter: ElvCharacterDB, AutoQuestSave
+## OptionalDeps: Blizzard_DebugTools, SharedMedia, Tukui, ButtonFacade
+## X-oUF: ElvUF
+## X-IconTexture: Interface\AddOns\ElvUI\Media\ElvUILogo
+
+Developer\Load_Developer.xml
+Libraries\Load_Libraries.xml
+Init.lua
+Locales\Load_Locales.xml
+Media\Load_Media.xml
+Settings\Load_Config.xml
+Core\Load_Core.xml
+Layout\Load_Layout.xml
+Modules\Load_Modules.xml
+-- Modules\VuhDoIntegration\Load_VuhDoIntegration.xml -- VUHDO INTEGRATION DISABLED
+
+## Enhanced (disabled - integrated directly)
+-- Enhanced\Developer\Load_Developer.xml
+-- Enhanced\Libraries\Load_Libraries.xml
+-- Enhanced\Locales\Load_Locales.xml
+-- Enhanced\Media\Load_Media.xml
+-- Enhanced\ElvUI_Enhanced.lua
+-- Enhanced\Settings\Load_Settings.xml
+-- Enhanced\Modules\Load_Modules.xml
+-- Enhanced\Config\Load_Config.xml

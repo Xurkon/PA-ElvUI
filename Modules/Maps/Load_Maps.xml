@@ -1,0 +1,23 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<!-- ElvUI Minimap module (keeping this) -->
+	<Script file="Minimap.lua"/>
+	
+	<!-- Removed ElvUI WorldMap - Replaced with embedded Mapster -->
+	<!-- <Include file="MagnifyFrames.xml"/> -->
+	<!-- <Script file="Worldmap.lua"/> -->
+	<!-- <Script file="MapMarkers.lua"/> -->
+	<!-- <Script file="Magnify.lua"/> -->
+	
+	<!-- Mapster - Embedded World Map Module -->
+	<Include file="Mapster\Locale\Load_Locales.xml"/>
+	<Script file="Mapster\Mapster.lua"/>
+	<Script file="Mapster\Config.lua"/>
+	<Script file="Mapster\Coords.lua"/>
+	<Script file="Mapster\GroupIcons.lua"/>
+	<Script file="Mapster\BattleMap.lua"/>
+	<Script file="Mapster\FogClear.lua"/>
+	<Script file="Mapster\InstanceMaps.lua"/>
+	<Script file="Mapster\ZoneLevels.lua"/>
+	<Script file="Mapster\Scaling.lua"/>
+	<Script file="Mapster\Magnify.lua"/>
+</Ui>
