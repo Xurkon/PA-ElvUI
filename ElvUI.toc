@@ -1,6 +1,6 @@
 ## Interface: 30300
 ## Author: Elv, Bunny, Xius
-## Version: 1.3.1
+## Version: 1.3.4
 ## Title: |cff1784d1E|r|cffe5e3e3lvUI|r
 ## Notes: User Interface replacement AddOn for World of Warcraft.
 ## SavedVariables: ElvDB, ElvPrivateDB, EnhancedDB, Omen3DB
