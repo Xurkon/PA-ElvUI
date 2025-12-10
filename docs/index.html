@@ -1,9 +1,12 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ElvUI - Documentation</title>
+    <meta name="description"
+        content="ElvUI for Project Ascension - Complete UI replacement for World of Warcraft 3.3.5a">
+    <title>ElvUI — Project Ascension</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -20,21 +23,29 @@
             --accent-green: #3fb950;
             --border-color: #30363d;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
+
         .hero {
             background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 50%, #1a1625 100%);
             padding: 4rem 2rem;
             text-align: center;
             border-bottom: 1px solid var(--border-color);
         }
+
         .hero h1 {
             font-size: 2.5rem;
             font-weight: 700;
@@ -44,6 +55,12 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+
+        .hero .subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
         .badges {
             display: flex;
             gap: 0.5rem;
@@ -51,27 +68,134 @@
             flex-wrap: wrap;
             margin-bottom: 2rem;
         }
+
         .badge {
             padding: 0.35rem 0.75rem;
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 500;
         }
-        .badge-version { background: var(--accent-blue); color: #fff; }
-        .badge-addon { background: var(--accent-purple); color: #fff; }
+
+        .badge-version {
+            background: var(--accent-blue);
+            color: #fff;
+        }
+
+        .badge-wow {
+            background: #f97316;
+            color: #fff;
+        }
+
+        .badge-ascension {
+            background: var(--accent-purple);
+            color: #fff;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent-gold);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            background: #ffd700;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
         .container {
             max-width: 1000px;
             margin: 0 auto;
             padding: 3rem 2rem;
             flex: 1;
         }
-        section { margin-bottom: 2rem; }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
         h2 {
             font-size: 1.5rem;
             margin-bottom: 1rem;
             color: var(--accent-gold);
         }
-        p { color: var(--text-secondary); line-height: 1.6; }
+
+        p,
+        li {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        ul {
+            margin-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .feature-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .changelog {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .changelog h3 {
+            color: var(--accent-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .changelog-item {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .changelog-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
         footer {
             text-align: center;
             padding: 2rem;
@@ -79,24 +203,101 @@
             color: var(--text-secondary);
             font-size: 0.9rem;
         }
+
+        footer a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
     </style>
 </head>
+
 <body>
     <header class="hero">
         <h1>ElvUI</h1>
+        <p class="subtitle">A comprehensive user interface replacement for World of Warcraft 3.3.5a</p>
         <div class="badges">
-            <span class="badge badge-addon">WoW Addon</span>
-            <span class="badge badge-version">v1.0.0</span>
+            <span class="badge badge-version">v1.3.3</span>
+            <span class="badge badge-wow">WoW 3.3.5a</span>
+            <span class="badge badge-ascension">Project Ascension</span>
+        </div>
+        <div class="cta-buttons">
+            <a href="https://github.com/Xurkon/PA-ElvUI/releases" class="btn btn-primary">⬇ Download</a>
+            <a href="https://github.com/Xurkon/PA-ElvUI" class="btn btn-secondary">📂 View Source</a>
         </div>
     </header>
+
     <main class="container">
         <section>
-            <h2>Overview</h2>
-            <p>Documentation for the <strong>ElvUI</strong> addon for World of Warcraft 3.3.5a (Project Ascension).</p>
+            <h2>✨ Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>🎯 Action Bars</h3>
+                    <p>Fully customizable action bars with ButtonFacade skin support for 30+ button styles.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>👤 Unit Frames</h3>
+                    <p>Player, target, party, and raid frames with extensive customization options.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🏷️ Nameplates</h3>
+                    <p>Enhanced nameplates with styling, filtering, and threat indicators.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎒 Bags</h3>
+                    <p>Unified bag interface with sorting, searching, and item categorization.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>💬 Chat</h3>
+                    <p>Enhanced chat with URL detection, copy/paste, and customization.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🗺️ Maps</h3>
+                    <p>Customizable minimap and world map with coordinates and zoom.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>📜 Recent Changes</h2>
+            <div class="changelog">
+                <div class="changelog-item">
+                    <h3>v1.3.3 — Project Ascension Updates</h3>
+                    <ul>
+                        <li>Persistent tree divider - Options panel divider remembers position</li>
+                        <li>Seamless MinimapButtonFrame (MBF) integration</li>
+                        <li>ButtonFacade support with 30+ button skins</li>
+                        <li>Quest automation with 700+ quest database</li>
+                    </ul>
+                </div>
+                <div class="changelog-item">
+                    <h3>Earlier Versions</h3>
+                    <ul>
+                        <li>Fixed ElvUI drag conflict with MBF</li>
+                        <li>Added ElvUI integration toggle in MBF settings</li>
+                        <li>Improved tooltip and datatext modules</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>👥 Credits</h2>
+            <ul>
+                <li><strong>Original ElvUI:</strong> Elv, Bunny, and the ElvUI team</li>
+                <li><strong>Modernized Overhaul:</strong> <a href="https://github.com/XiusTV">XiusTV</a></li>
+                <li><strong>Project Ascension Updates:</strong> <a href="https://github.com/Xurkon">Xurkon</a></li>
+                <li><strong>Libraries:</strong> oUF Framework, Ace3 Library, Community Contributors</li>
+            </ul>
         </section>
     </main>
+
     <footer>
-        <p>Generated by Antigravity - your AI assistant.</p>
+        <p>
+            <a href="https://github.com/Xurkon/PA-ElvUI">GitHub</a> •
+            <a href="https://github.com/Xurkon/PA-ElvUI/blob/master/CHANGELOG.md">Changelog</a> •
+            <a href="https://github.com/Xurkon/PA-ElvUI/blob/master/LICENSE">License</a>
+        </p>
     </footer>
 </body>
+
 </html>
