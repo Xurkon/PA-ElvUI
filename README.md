@@ -60,6 +60,7 @@ This is a **monorepo** containing:
 ## Credits
 
 - **Project Ascension Updates:** Xurkon
+- **Modernized Overhaul:** [XiusTV](https://github.com/XiusTV/)
 - **Original ElvUI:** Elv, Bunny, and team
 - oUF Framework, Ace3 Library, Community Contributors
 
