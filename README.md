@@ -12,6 +12,12 @@
 ElvUI is a complete UI replacement featuring action bars, unit frames, nameplates, bags, chat, maps, tooltips, and more - all highly customizable.
 
 **Updated for Project Ascension compatibility by Xurkon**
+ 
+ ## ⚡ At a Glance
+ - **Full UI Replacement**: Replaces all standard Blizzard interface elements.
+ - **Highly Customizable**: Configure every aspect of your UI via `/ec`.
+ - **Ascension Ready**: Tweaked specifically for Project Ascension 3.3.5a.
+ - **Performance Focused**: Optimized for smooth gameplay.
 
 ## Version 1.3.3
 
