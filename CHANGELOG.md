@@ -4,7 +4,12 @@ All notable changes to ElvUI will be documented in this file.
 
 **Updated for Project Ascension compatibility by Xurkon**
 
-## [1.3.3] - 2025-12-10
+## [1.3.3] - 2025-12-19
+
+### Added - Documentation
+- **At a Glance Section**
+  - Added "At a Glance" key features summary to README.md
+  - Highlights core value: Full Replacement, Customizability, Ascension Readiness, Performance
 
 ### Added - Options Panel Improvements
 
