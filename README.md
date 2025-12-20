@@ -1,6 +1,9 @@
 # ElvUI for Project Ascension
 
 [![Documentation](https://img.shields.io/badge/📖_Docs-GitHub_Pages-2ea44f?style=for-the-badge)](https://xurkon.github.io/PA-ElvUI/)
+![Downloads](https://img.shields.io/github/downloads/Xurkon/PA-ElvUI/total?style=for-the-badge&label=DOWNLOADS&color=e67e22)
+[![Patreon](https://img.shields.io/badge/Patreon-Support-orange?style=for-the-badge&logo=patreon)](https://patreon.com/Xurkon)
+[![PayPal](https://img.shields.io/badge/PayPal-Donate-blue?style=for-the-badge&logo=paypal)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=kancerous@gmail.com)
 
 **A comprehensive user interface replacement for World of Warcraft 3.3.5 (WotLK)**
 
