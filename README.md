@@ -1,13 +1,14 @@
 # ElvUI for Project Ascension
 
 [![Documentation](https://img.shields.io/badge/📖_Docs-GitHub_Pages-2ea44f?style=for-the-badge)](https://xurkon.github.io/PA-ElvUI/)
-![Downloads](https://img.shields.io/github/downloads/Xurkon/PA-ElvUI/total?style=for-the-badge&label=DOWNLOADS&color=e67e22)
+![Total Downloads](https://img.shields.io/github/downloads/Xurkon/PA-ElvUI/total?style=for-the-badge&label=TOTAL%20DOWNLOADS&color=e67e22)
+![Latest Release](https://img.shields.io/github/downloads/Xurkon/PA-ElvUI/latest/total?style=for-the-badge&label=LATEST%20RELEASE&color=3498db)
 [![Patreon](https://img.shields.io/badge/Patreon-Support-orange?style=for-the-badge&logo=patreon)](https://patreon.com/Xurkon)
 [![PayPal](https://img.shields.io/badge/PayPal-Donate-blue?style=for-the-badge&logo=paypal)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=kancerous@gmail.com)
 
 **A comprehensive user interface replacement for World of Warcraft 3.3.5 (WotLK)**
 
-[![Version](https://img.shields.io/badge/version-1.3.3-blue.svg)](https://github.com/Xurkon/PA-ElvUI)
+[![Version](https://img.shields.io/badge/version-1.3.4-blue.svg)](https://github.com/Xurkon/PA-ElvUI)
 [![WoW](https://img.shields.io/badge/WoW-3.3.5a-orange.svg)](https://project-ascension.com)
 
 ## About
@@ -16,20 +17,33 @@ ElvUI is a complete UI replacement featuring action bars, unit frames, nameplate
 
 **Updated for Project Ascension compatibility by Xurkon**
  
- ## ⚡ At a Glance
- - **Full UI Replacement**: Replaces all standard Blizzard interface elements.
- - **Highly Customizable**: Configure every aspect of your UI via `/ec`.
- - **Ascension Ready**: Tweaked specifically for Project Ascension 3.3.5a.
- - **Performance Focused**: Optimized for smooth gameplay.
+## ⚡ At a Glance
+- **Full UI Replacement**: Replaces all standard Blizzard interface elements.
+- **Highly Customizable**: Configure every aspect of your UI via `/ec`.
+- **Ascension Ready**: Tweaked specifically for Project Ascension 3.3.5a.
+- **Performance Focused**: Optimized for smooth gameplay.
 
-## Version 1.3.3
+## Version 1.3.4
 
 ### Recent Changes
 
+- **MBF Integration Fixes** - ElvUI Enhanced options properly disable when MBF has control
+- **Disclaimer Text** - Informative message when MBF controls minimap buttons
 - **Persistent Tree Divider** - Options panel divider remembers its position across sessions
-- **MBF Integration** - Seamless MinimapButtonFrame addon integration
 - **ButtonFacade Support** - 30+ button skins for action bars
 - **Quest Automation** - Auto-accept/complete with 700+ quest database
+
+## Included Addons
+
+| Addon | Description |
+|-------|-------------|
+| **ElvUI** | Core functionality and framework |
+| **ElvUI_OptionsUI** | Configuration panel (loads on demand) |
+| **ElvUI_AddOnSkins** | Skins for third-party addons |
+| **ElvUI_Enhanced** | Additional features and enhancements |
+| **ElvUI_EnhancedFriendsList** | Improved friends list |
+| **ElvUI_ExtraActionBars** | Additional action bar options |
+| **ElvUI_UtilityBar** | Quick access utility buttons |
 
 ## Features
 
@@ -47,17 +61,11 @@ ElvUI is a complete UI replacement featuring action bars, unit frames, nameplate
 
 ## Installation
 
-1. Extract both `ElvUI` and `ElvUI_OptionsUI` folders to `Interface\AddOns`
-2. Launch World of Warcraft
-3. Complete the installation wizard on first load
-4. Configure with `/ec` or `/elvui`
-
-## Components
-
-This is a **monorepo** containing:
-
-- **ElvUI** - Core functionality and framework
-- **ElvUI_OptionsUI** - Configuration panel (loads on demand)
+1. Download the latest release zip
+2. Extract all addon folders to `Interface\AddOns`
+3. Launch World of Warcraft
+4. Complete the installation wizard on first load
+5. Configure with `/ec` or `/elvui`
 
 ## Configuration
 
