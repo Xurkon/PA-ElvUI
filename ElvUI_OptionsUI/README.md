@@ -96,3 +96,6 @@ ElvUI_OptionsUI is free software distributed with ElvUI.
 
 This addon will only load when you access ElvUI configuration, saving memory during normal gameplay.
 
+
+[Documentation](docs/index.html)
+
