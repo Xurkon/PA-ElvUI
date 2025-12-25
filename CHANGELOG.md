@@ -4,38 +4,43 @@ All notable changes to ElvUI will be documented in this file.
 
 **Updated for Project Ascension compatibility by Xurkon**
 
-## [1.3.4] - 2025-12-24
+## [1.3.6] - 2025-12-25
 
-### Added - MinimapButtonFrame Integration Fixes
+### Fixed - Minimap Button Options
 
-- **ElvUI Enhanced Options Disable**
-  - ElvUI Enhanced's Minimap Button Grabber options now properly grey out when MBF control is enabled
-  - Fixed disabled state inheritance for all child options
-  
-- **Disclaimer Text**
-  - Added red disclaimer text in ElvUI Enhanced options: "Minimap Button Frame has current control over minimap buttons, change in ElvUI>Maps>Minimap to disable."
-  - Disclaimer automatically hidden when MBF control is disabled
+- **Button Options Enable/Disable**
+  - Calendar, Mail, LFG Eye, Battlefield, Difficulty, and Vehicle Leave button options now properly enable/disable
+  - Added `disabled` function to each button group in Maps.lua
+  - Options correctly grey out when minimap is disabled OR when MBF is controlling buttons
+  - Fixed button groups missing their `disabled` attribute
 
-### Changed - Repository Structure
+---
 
-- **Monorepo Restructure**
-  - Reorganized PA-ElvUI as a proper monorepo with all addons as subdirectories
-  - Root now contains only addon folders and documentation
-  
-- **Included Addons**
-  - ElvUI (core)
-  - ElvUI_AddOnSkins
-  - ElvUI_Enhanced
-  - ElvUI_EnhancedFriendsList
-  - ElvUI_ExtraActionBars
-  - ElvUI_OptionsUI
-  - ElvUI_UtilityBar
+## [1.3.5] - 2025-12-24
 
+### Fixed - MBF Integration
+
+- **Minimap Button Options Now Enable Correctly**
+  - Options in Maps → Minimap → Buttons no longer stay disabled when MinimapButtonFrame addon is uninstalled
+  - Added `IsMBFControlActive()` helper function that checks both `IsAddOnLoaded("MinimapButtonFrame")` AND `mbfControlEnabled`
+  - MBF warning text only shows when MBF addon is actually loaded
+  - Fixed syntax error in `mbfControlEnabled` setter function
+
+### Fixed - Module Registration Errors
+
+- **"Module already exists" Errors Resolved**
+  - Renamed all WarcraftEnhanced modules from `Enhanced_*` prefix to `WarcraftEnhanced_*` prefix
+  - Prevents conflicts when both `ElvUI/Modules/WarcraftEnhanced/` and `ElvUI_Enhanced/` are present
+  - Updated OptionsUI helper functions with dual-lookup pattern (tries Enhanced_ first, falls back to WarcraftEnhanced_)
+   
 ### Technical Details
 
-- Updated `ElvUI_Enhanced/Config/Config.lua` with `mbfDisclaimer` description element
-- Updated `MinimapButtonGrabber.lua` with `HandleEnableState()` and `ReleaseButtonsToMBF()` functions
-- Added guard clause to `GrabMinimapButtons()` to prevent conflicts when MBF is active
+- Modified `Maps.lua`:
+  - Fixed line 368: `IsMBFControlActive() = value` → `E.db.general.minimap.mbfControlEnabled = value`
+  - Uses `IsMBFControlActive()` helper for all button disabled/hidden checks
+- Modified `Enhanced.lua` and `General.lua` with dual-lookup `GetModule()` pattern
+- Renamed WarcraftEnhanced modules: `Blizzard.lua`, `TakeAllMail.lua`, `TooltipIcon.lua`, `ItemQualityBorder.lua`, `ActionbarKeyPress.lua`, `MinimapButtonGrabber.lua`, etc.
+- Deleted duplicate `ElvUI/Enhanced/` folder that conflicted with ElvUI_Enhanced addon
 
 ---
 

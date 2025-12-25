@@ -13,11 +13,11 @@ local _G = _G
 local FCF_GetNumActiveChatFrames = FCF_GetNumActiveChatFrames
 
 local function GetTakeAllMailModule()
-	return E:GetModule("Enhanced_TakeAllMail", true)
+	return E:GetModule("Enhanced_TakeAllMail", true) or E:GetModule("WarcraftEnhanced_TakeAllMail", true)
 end
 
 local function GetEnhancedBlizzardModule()
-	return E:GetModule("Enhanced_Blizzard", true)
+	return E:GetModule("Enhanced_Blizzard", true) or E:GetModule("WarcraftEnhanced_Blizzard", true)
 end
 
 local function GetChatWindowInfo()

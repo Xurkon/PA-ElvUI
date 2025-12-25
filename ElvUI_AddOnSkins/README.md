@@ -1,3 +1,0 @@
-
-[Documentation](docs/index.html)
-

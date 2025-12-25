@@ -67,27 +67,27 @@ local function EnsureEnhancedDB()
 end
 
 local function GetKeyPressModule()
-	return E:GetModule("Enhanced_KeyPressAnimation", true)
+	return E:GetModule("Enhanced_KeyPressAnimation", true) or E:GetModule("WarcraftEnhanced_KeyPressAnimation", true)
 end
 
 local function GetBlizzardModule()
-	return E:GetModule("Enhanced_Blizzard", true)
+	return E:GetModule("Enhanced_Blizzard", true) or E:GetModule("WarcraftEnhanced_Blizzard", true)
 end
 
 local function GetTakeAllMailModule()
-	return E:GetModule("Enhanced_TakeAllMail", true)
+	return E:GetModule("Enhanced_TakeAllMail", true) or E:GetModule("WarcraftEnhanced_TakeAllMail", true)
 end
 
 local function GetTooltipIconModule()
-	return E:GetModule("Enhanced_TooltipIcon", true)
+	return E:GetModule("Enhanced_TooltipIcon", true) or E:GetModule("WarcraftEnhanced_TooltipIcon", true)
 end
 
 local function GetItemBorderModule()
-	return E:GetModule("Enhanced_ItemBorderColor", true)
+	return E:GetModule("Enhanced_ItemBorderColor", true) or E:GetModule("WarcraftEnhanced_ItemBorderColor", true)
 end
 
 local function GetProgressionModule()
-	return E:GetModule("Enhanced_ProgressionInfo", true)
+	return E:GetModule("Enhanced_ProgressionInfo", true) or E:GetModule("WarcraftEnhanced_ProgressionInfo", true)
 end
 
 local function EnsureProgressionDB()
