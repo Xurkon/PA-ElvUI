@@ -4,6 +4,17 @@ All notable changes to ElvUI will be documented in this file.
 
 **Updated for Project Ascension compatibility by Xurkon**
 
+## [1.3.7] - 2026-01-01
+
+### Fixed - Postal Addon Skin
+
+- **Postal AboutFrame Nil Error Fixed**
+  - Fixed `AddOn 'Postal' prevented the call of the secure function '<unnamed>:SetAttribute()'` error
+  - Postal skin now references global `_G["PostalAboutFrame"]` instead of `self.aboutFrame`
+  - Added nil checks to prevent errors with Postal v3.3.2 which uses local variable for aboutFrame
+
+---
+
 ## [1.3.6] - 2025-12-25
 
 ### Fixed - Minimap Button Options
