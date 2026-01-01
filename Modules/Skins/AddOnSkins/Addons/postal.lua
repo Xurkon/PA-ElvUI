@@ -51,7 +51,8 @@ S:AddCallbackForAddon("Postal", "Postal", function()
 
 		local closeButton = select(2, aboutFrame:GetChildren())
 		if closeButton then
-			S:HandleCloseButton(closeButton, aboutFrame)
+			-- Wrap in pcall to prevent taint errors with UIPanelCloseButton template
+			pcall(S.HandleCloseButton, S, closeButton, aboutFrame)
 		end
 	end)
 
