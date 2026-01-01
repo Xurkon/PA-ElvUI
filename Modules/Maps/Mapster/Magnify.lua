@@ -41,6 +41,7 @@ local defaults = {
         enableOldPartyIcons = false,
         maxZoom = 4.0,
         zoomStep = 0.1,
+        persistedScale = 1.0,  -- Saved zoom scale for persistence across sessions
     }
 }
 
@@ -97,6 +98,10 @@ function Magnify.PersistMapScrollAndPan()
     Magnify.PreviousState.panY = WorldMapScrollFrame:GetVerticalScroll()
     Magnify.PreviousState.scale = WorldMapDetailFrame:GetScale()
     Magnify.PreviousState.zone = GetCurrentMapZone()
+    -- Persist scale to database for cross-session persistence
+    if db and db.enablePersistZoom then
+        db.persistedScale = Magnify.PreviousState.scale
+    end
 end
 
 function Magnify.AfterScrollOrPan()
@@ -291,12 +296,29 @@ function Magnify.SetupWorldMapFrame()
     WorldMapScrollFrame:SetHorizontalScroll(0)
     WorldMapScrollFrame:SetVerticalScroll(0)
 
-    if (db and db.enablePersistZoom and GetCurrentMapZone() == Magnify.PreviousState.zone) then
-        Magnify.SetDetailFrameScale(Magnify.PreviousState.scale)
-        WorldMapScrollFrame:SetHorizontalScroll(Magnify.PreviousState.panX)
-        WorldMapScrollFrame:SetVerticalScroll(Magnify.PreviousState.panY)
+    -- Restore zoom: either same zone or cross-session persisted scale
+    local shouldRestoreZoom = false
+    local scaleToRestore = 1
+    
+    if db and db.enablePersistZoom then
+        -- Check for same-zone restore first
+        if GetCurrentMapZone() == Magnify.PreviousState.zone and Magnify.PreviousState.scale > 1 then
+            shouldRestoreZoom = true
+            scaleToRestore = Magnify.PreviousState.scale
+        -- Otherwise try to restore persisted scale from database (cross-session)
+        elseif db.persistedScale and db.persistedScale > 1 then
+            shouldRestoreZoom = true
+            scaleToRestore = db.persistedScale
+        end
     end
-
+    
+    if shouldRestoreZoom then
+        Magnify.SetDetailFrameScale(scaleToRestore)
+        if GetCurrentMapZone() == Magnify.PreviousState.zone then
+            WorldMapScrollFrame:SetHorizontalScroll(Magnify.PreviousState.panX)
+            WorldMapScrollFrame:SetVerticalScroll(Magnify.PreviousState.panY)
+        end
+    end
     WorldMapButton:SetScale(1)
     WorldMapButton:SetAllPoints(WorldMapDetailFrame)
     pcall(function() WorldMapButton:SetParent(WorldMapDetailFrame) end)
@@ -807,6 +829,12 @@ function Magnify:OnEnable()
     db.enableOldPartyIcons = db.enableOldPartyIcons ~= nil and db.enableOldPartyIcons or defaults.profile.enableOldPartyIcons
     db.maxZoom = db.maxZoom or defaults.profile.maxZoom
     db.zoomStep = db.zoomStep or defaults.profile.zoomStep
+    db.persistedScale = db.persistedScale or defaults.profile.persistedScale
+
+    -- Restore persisted scale on login/reload if enabled
+    if db.enablePersistZoom and db.persistedScale and db.persistedScale > 1 then
+        Magnify.PreviousState.scale = db.persistedScale
+    end
 
     -- Create WorldMapScrollFrame if it doesn't exist (Magnify-WotLK creates this via Frames.xml)
     if not WorldMapScrollFrame then

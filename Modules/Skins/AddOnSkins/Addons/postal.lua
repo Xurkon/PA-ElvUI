@@ -26,21 +26,32 @@ S:AddCallbackForAddon("Postal", "Postal", function()
 	Postal_ModuleMenuButton:Size(26)
 
 	hooksecurefunc(Postal, "CreateAboutFrame", function(self)
-		self.aboutFrame:SetTemplate("Transparent")
+		-- Postal v3.3.2 uses local aboutFrame, not self.aboutFrame
+		-- Use the global PostalAboutFrame instead
+		local aboutFrame = _G["PostalAboutFrame"]
+		if not aboutFrame then return end
 
-		PostalAboutScroll:Point("TOPLEFT", 8, -26)
-		PostalAboutScroll:Point("BOTTOMRIGHT", -29, 8)
+		aboutFrame:SetTemplate("Transparent")
 
-		S:HandleScrollBar(PostalAboutScrollScrollBar)
-		PostalAboutScrollScrollBar:Point("TOPLEFT", PostalAboutScroll, "TOPRIGHT", 3, -19)
-		PostalAboutScrollScrollBar:Point("BOTTOMLEFT", PostalAboutScroll, "BOTTOMRIGHT", 3, 19)
+		if PostalAboutScroll then
+			PostalAboutScroll:Point("TOPLEFT", 8, -26)
+			PostalAboutScroll:Point("BOTTOMRIGHT", -29, 8)
+		end
 
-		self.aboutFrame.editBox:Width(461)
-		self.aboutFrame.editBox:Point("TOPLEFT", 1, -1)
+		if PostalAboutScrollScrollBar then
+			S:HandleScrollBar(PostalAboutScrollScrollBar)
+			PostalAboutScrollScrollBar:Point("TOPLEFT", PostalAboutScroll, "TOPRIGHT", 3, -19)
+			PostalAboutScrollScrollBar:Point("BOTTOMLEFT", PostalAboutScroll, "BOTTOMRIGHT", 3, 19)
+		end
 
-		local closeButton = select(2, PostalAboutFrame:GetChildren())
+		if aboutFrame.editBox then
+			aboutFrame.editBox:Width(461)
+			aboutFrame.editBox:Point("TOPLEFT", 1, -1)
+		end
+
+		local closeButton = select(2, aboutFrame:GetChildren())
 		if closeButton then
-			S:HandleCloseButton(closeButton, PostalAboutFrame)
+			S:HandleCloseButton(closeButton, aboutFrame)
 		end
 	end)
 

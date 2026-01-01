@@ -289,9 +289,26 @@ function Mapster:Enable()
 	UIDropDownMenu_SetWidth(questObj, 150)
 	questObjDropDownUpdate()
 
-	-- Pre-apply settings to avoid redundant work on first map open
+	-- Set miniMap state first so metatable proxies correctly
+	if db.miniMap then
+		self:SizeDown()
+	end
+	self.miniMap = db.miniMap
+
+	-- Read saved scale directly from ElvUI saved variables
+	local savedScale = E.db.maps and E.db.maps.worldMap and E.db.maps.worldMap.scale or 0.75
+
+	-- Pre-apply settings
 	self:SetStrata()
-	self:SetScale()
+	
+	-- Restore position
+	self:SetPosition()
+	
+	-- Apply saved scale directly (bypass metatable issues)
+	if savedScale and savedScale > 0 then
+		WorldMapFrame:SetScale(savedScale)
+	end
+	
 	mapShowInitialized = true -- Mark as initialized since we already set them
 	
 	wmfOnShow(WorldMapFrame)
@@ -305,12 +322,6 @@ function Mapster:Enable()
 	self:RegisterEvent("PLAYER_REGEN_DISABLED")
 	self:RegisterEvent("PLAYER_REGEN_ENABLED")
 
-	if db.miniMap then
-		self:SizeDown()
-	end
-	self.miniMap = db.miniMap
-
-	self:SetPosition()
 	self:SetAlpha()
 	self:SetArrow()
 	self:SetPOIScale()
@@ -881,6 +892,9 @@ function Mapster:SetScale()
 	self:ApplyVisualSettings(true)
 end
 
+-- Flag to indicate LibWindow has restored position/scale
+Mapster.scaleRestoredByLibWindow = false
+
 function Mapster:ApplyVisualSettings(force)
 	local mapFrame = FrameExists()
 	if not mapFrame then return end
@@ -888,6 +902,12 @@ function Mapster:ApplyVisualSettings(force)
 	local desiredAlpha = db.alpha or 1
 	if force or abs(mapFrame:GetAlpha() - desiredAlpha) > 0.001 then
 		mapFrame:SetAlpha(desiredAlpha)
+	end
+
+	-- Don't override scale if LibWindow just restored it
+	if self.scaleRestoredByLibWindow then
+		self.scaleRestoredByLibWindow = false
+		return
 	end
 
 	local desiredScale = db.scale or 1
@@ -899,6 +919,8 @@ end
 function Mapster:SetPosition()
 	local mapFrame = WorldMapFrame or _G.WorldMapFrame
 	if mapFrame then
+		-- Set flag so ApplyVisualSettings doesn't override the restored scale
+		self.scaleRestoredByLibWindow = true
 		LibWindow.RestorePosition(mapFrame)
 	end
 end

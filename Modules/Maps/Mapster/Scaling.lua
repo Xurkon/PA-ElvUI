@@ -52,6 +52,13 @@ function Scale:OnEnable()
 			scaler:SetDesaturated(true)
 		end)
 		mousetracker:SetScript("OnMouseUp", function(self)
+			local scale = WorldMapFrame:GetScale()
+			
+			-- Save scale directly to ElvUI saved variables (bypassing metatable)
+			if E and E.db and E.db.maps and E.db.maps.worldMap then
+				E.db.maps.worldMap.scale = scale
+			end
+			
 			LibWindow.SavePosition(WorldMapFrame)
 			self:SetScript("OnUpdate", nil)
 			self:SetAllPoints(scaler)
