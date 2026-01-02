@@ -108,7 +108,8 @@ S:AddCallbackForAddon("Postal", "Postal", function()
 			for i = 1, 7 do
 				local returnIcon = _G["MailItem"..i.."ExpireTime"].returnicon
 				returnIcon:StripTextures(true)
-				S:HandleCloseButton(returnIcon)
+				-- Wrap in pcall to prevent taint errors with secure button templates
+				pcall(S.HandleCloseButton, S, returnIcon)
 				returnIcon:Size(26)
 				returnIcon:ClearAllPoints()
 				returnIcon:Point("TOPRIGHT", 32, -3)
