@@ -626,6 +626,12 @@ function TT:Initialize()
 	GameTooltip.StatusBar.text:Point("CENTER", GameTooltip.StatusBar, 0, 0)
 	GameTooltip.StatusBar.text:FontTemplate(E.Libs.LSM:Fetch("font", self.db.healthBar.font), self.db.healthBar.fontSize, self.db.healthBar.fontOutline)
 
+	-- Ensure tooltips are always on top of other frames
+	GameTooltip:SetFrameStrata("TOOLTIP")
+	ShoppingTooltip1:SetFrameStrata("TOOLTIP")
+	ShoppingTooltip2:SetFrameStrata("TOOLTIP")
+	ItemRefTooltip:SetFrameStrata("TOOLTIP")
+
 	--Tooltip Fonts
 	if not GameTooltip.hasMoney then
 		--Force creation of the money lines, so we can set font for it
@@ -647,6 +653,13 @@ function TT:Initialize()
 	self:HookScript(GameTooltip, "OnTooltipSetUnit", "GameTooltip_OnTooltipSetUnit")
 	self:HookScript(GameTooltip.StatusBar, "OnValueChanged", "GameTooltipStatusBar_OnValueChanged")
 	self:RegisterEvent("MODIFIER_STATE_CHANGED")
+
+	-- Ensure tooltip strata is always maintained (some addons may lower it)
+	GameTooltip:HookScript("OnShow", function(tt)
+		if tt:GetFrameStrata() ~= "TOOLTIP" then
+			tt:SetFrameStrata("TOOLTIP")
+		end
+	end)
 
 	--Variable is localized at top of file, then set here when we're sure the frame has been created
 	--Used to check if keybinding is active, if so then don"t hide tooltips on actionbars
