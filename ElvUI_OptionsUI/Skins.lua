@@ -2,7 +2,6 @@ local E, _, V, P, G = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, Profi
 local _, L = unpack(select(2, ...))
 
 E.Options.args.skins = {
-	order = 130, -- Alphabetical: S
 	type = "group",
 	name = L["Skins"],
 	childGroups = "tree",

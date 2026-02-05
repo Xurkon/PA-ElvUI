@@ -6,8 +6,7 @@ if not AS:IsAddonLODorEnabled("!Swatter") then return end
 
 -- Swatter 5.8.4723
 
--- Event name uses "_Skin" suffix to avoid duplicate registration errors
-S:AddCallbackForAddon("!Swatter", "!Swatter_Skin", function()
+S:AddCallbackForAddon("!Swatter", "!Swatter", function()
 	if not E.private.addOnSkins.Swatter then return end
 	if not (Swatter and Swatter.Error) then return end
 

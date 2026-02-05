@@ -4,8 +4,7 @@ local AS = E:GetModule("AddOnSkins")
 
 if not AS:IsAddonLODorEnabled("WeakAuras") then return end
 
--- Event name uses "_Skin" suffix to avoid duplicate registration errors
-S:AddCallbackForAddon("WeakAuras", "WeakAuras_Skin", function()
+S:AddCallbackForAddon("WeakAuras", "WeakAuras", function()
 	if WeakAuras.IsCorrectVersion then return end
 	if not E.private.addOnSkins.WeakAuras then return end
 

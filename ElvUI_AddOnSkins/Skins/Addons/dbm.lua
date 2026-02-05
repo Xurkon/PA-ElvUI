@@ -14,28 +14,26 @@ local hooksecurefunc = hooksecurefunc
 -- Deadly Boss Mods 4.52 r4442
 -- https://www.curseforge.com/wow/addons/deadly-boss-mods/files/447605
 
--- Event name uses "_Skin" suffix to avoid duplicate registration errors
-S:AddCallbackForAddon("DBM-Core", "DBM-Core_Skin", function()
+S:AddCallbackForAddon("DBM-Core", "DBM-Core", function()
 	if not E.private.addOnSkins.DBM then return end
 
 	local backportVersion = DBM.ReleaseRevision > 7000
 	local backportVersion2 = DBM.ReleaseRevision >= 20220412000000 -- 9.2.14
 
 	local function createIconOverlay(id, parent)
-		local db = E.db.addOnSkins
 		local frame = CreateFrame("Frame", "$parentIcon" .. id .. "Overlay", parent)
 		frame:SetTemplate()
 
 		if id == 1 then
-			if db.DBMSkinHalf then
-				frame:Point("BOTTOMRIGHT", parent, "BOTTOMLEFT", - db.dbmIconXOffset, 0)
+			if E.db.addOnSkins.DBMSkinHalf then
+				frame:Point("BOTTOMRIGHT", parent, "BOTTOMLEFT", -10 * (E.Border + E.Spacing), 0)
 			else
-				frame:Point("RIGHT", parent, "LEFT", - db.dbmIconXOffset, 0)
+				frame:Point("RIGHT", parent, "LEFT", -(E.Border + E.Spacing), 0)
 			end
-		elseif db.DBMSkinHalf then
-			frame:Point("BOTTOMLEFT", parent, "BOTTOMRIGHT", db.dbmIconXOffset, 0)
+		elseif E.db.addOnSkins.DBMSkinHalf then
+			frame:Point("BOTTOMLEFT", parent, "BOTTOMRIGHT", 10 * (E.Border + E.Spacing), 0)
 		else
-			frame:Point("LEFT", parent, "RIGHT", db.dbmIconXOffset, 0)
+			frame:Point("LEFT", parent, "RIGHT", (E.Border + E.Spacing), 0)
 		end
 
 		local backdroptex = frame:CreateTexture(nil, "BORDER")
@@ -143,10 +141,11 @@ S:AddCallbackForAddon("DBM-Core", "DBM-Core_Skin", function()
 	end
 
 	local function skinBars(self)
+		local db = E.db.addOnSkins
+
 		for bar in self:GetBarIterator() do
 			if not bar.injected then
 				hooksecurefunc(bar, "Update", function()
-					local db = E.db.addOnSkins
 					local sparkEnabled = DBT.Options.Spark
 					if not (db.DBMSkinHalf and sparkEnabled) then return end
 					local spark = _G[bar.frame:GetName().."BarSpark"]
@@ -155,7 +154,6 @@ S:AddCallbackForAddon("DBM-Core", "DBM-Core_Skin", function()
 					spark:SetPoint(a, b, c, d, 0)
 				end)
 				hooksecurefunc(bar, "ApplyStyle", function()
-					local db = E.db.addOnSkins
 					local frame = bar.frame
 					local tbar = _G[frame:GetName().."Bar"]
 					local icon1 = _G[frame:GetName().."BarIcon1"]
@@ -198,7 +196,7 @@ S:AddCallbackForAddon("DBM-Core", "DBM-Core_Skin", function()
 					timer:SetShadowColor(0, 0, 0, 0)
 
 					if db.DBMSkinHalf then
-						name:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", 0, db.dbmBarTextYOffset)
+						name:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", 0, 3)
 						name:SetPoint("BOTTOMRIGHT", timer, "BOTTOMLEFT") -- truncation
 						timer:SetPoint("BOTTOMRIGHT", frame, "TOPRIGHT", -1, 1)
 					else
@@ -352,7 +350,7 @@ S:AddCallbackForAddon("DBM-Core", "DBM-Core_Skin", function()
 
 	if backportVersion2 then
 		hooksecurefunc(DBT, "CreateBar", skinBars)
-	elseif not S:IsHooked(DBT, "CreateBar") then
+	else
 		S:SecureHook(DBT, "CreateBar", function(self)
 			local hooked
 			for bar in pairs(self.bars) do
@@ -432,40 +430,34 @@ S:AddCallbackForAddon("DBM-Core", "DBM-Core_Skin", function()
 	hooksecurefunc(DBM.BossHealth, "AddBoss", SkinBoss)
 	hooksecurefunc(DBM.BossHealth, "UpdateSettings", SkinBoss)
 
-	if not S:IsHooked(DBM.RangeCheck, "Show") then
-		S:SecureHook(DBM.RangeCheck, "Show", function(self)
-			if not DBMRangeCheck then return end
+	S:SecureHook(DBM.RangeCheck, "Show", function(self)
+		if not DBMRangeCheck then return end
 
-			DBMRangeCheck:SetTemplate("Transparent")
-			E:GetModule("Tooltip"):HookScript(DBMRangeCheck, "OnShow", "SetStyle")
+		DBMRangeCheck:SetTemplate("Transparent")
+		E:GetModule("Tooltip"):HookScript(DBMRangeCheck, "OnShow", "SetStyle")
 
-			S:Unhook(self, "Show")
-		end)
-	end
+		S:Unhook(self, "Show")
+	end)
 
 	if backportVersion then
-		if not S:IsHooked(DBM, "AddWarning") then
-			S:RawHook(DBM, "AddWarning", function(self, text, ...)
-				if find(text, " |T") then
-					text = gsub(text, "(:12:12)", ":18:18:0:0:64:64:5:59:5:59")
-				end
+		S:RawHook(DBM, "AddWarning", function(self, text, ...)
+			if find(text, " |T") then
+				text = gsub(text, "(:12:12)", ":18:18:0:0:64:64:5:59:5:59")
+			end
 
-				return S.hooks[DBM].AddWarning(self, text, ...)
-			end)
-		end
+			return S.hooks[DBM].AddWarning(self, text, ...)
+		end)
 	else
-		if not S:IsHooked("RaidNotice_AddMessage") then
-			S:RawHook("RaidNotice_AddMessage", function(noticeFrame, textString, colorInfo)
-				if find(textString, " |T") then
-					textString = gsub(textString, "(:12:12)", ":18:18:0:0:64:64:5:59:5:59")
-				end
+		S:RawHook("RaidNotice_AddMessage", function(noticeFrame, textString, colorInfo)
+			if find(textString, " |T") then
+				textString = gsub(textString, "(:12:12)", ":18:18:0:0:64:64:5:59:5:59")
+			end
 
-				return S.hooks.RaidNotice_AddMessage(noticeFrame, textString, colorInfo)
-			end, true)
-		end
+			return S.hooks.RaidNotice_AddMessage(noticeFrame, textString, colorInfo)
+		end, true)
 	end
 
-	if DBM.ShowUpdateReminder and not S:IsHooked(DBM, "ShowUpdateReminder") then
+	if DBM.ShowUpdateReminder then
 		S:SecureHook(DBM, "ShowUpdateReminder", function(self)
 			DBMUpdateReminder:SetTemplate("Transparent")
 			DBMUpdateReminder:EnableMouse(true)
@@ -486,8 +478,7 @@ S:AddCallbackForAddon("DBM-Core", "DBM-Core_Skin", function()
 	end
 end)
 
--- Event name uses "_Skin" suffix to avoid duplicate registration errors
-S:AddCallbackForAddon("DBM-GUI", "DBM-GUI_Skin", function()
+S:AddCallbackForAddon("DBM-GUI", "DBM-GUI", function()
 	if not E.private.addOnSkins.DBM then return end
 	local backportVersion2 = DBM.ReleaseRevision >= 20220412000000 -- 9.2.14
 
@@ -525,29 +516,12 @@ S:AddCallbackForAddon("DBM-GUI", "DBM-GUI_Skin", function()
 		for _, button in ipairs(DBM_GUI_OptionsFrameList.buttons) do
 			S:HandleCollapseTexture(button.toggle)
 		end
-
-		-- Panel Container FOV Scrollbar backdrop
-		local child = select(3, DBM_GUI_OptionsFramePanelContainerFOVScrollBar:GetChildren())
-		if child and child:IsObjectType("Frame") then
-			child:StripTextures()
-		end
-
-		-- Dropdown list & scrollbar
-		DBM_GUI_DropDownList:StripTextures() -- removes UI-Tooltip-Border
-		S:HandleScrollBar(DBM_GUI_DropDownListScrollBar) -- original position and size are ruined, so rebuild them below
-		DBM_GUI_DropDownListScrollBar:Point("TOPRIGHT", -3, -16)
-		DBM_GUI_DropDownListScrollBar:Point("BOTTOMLEFT", 2, 16)
-		DBM_GUI_DropDownListScrollBarScrollUpButton:SetSize(12, 12)
-		DBM_GUI_DropDownListScrollBarScrollDownButton:SetSize(12, 12)
-		DBM_GUI_DropDownListScrollBarThumbTexture:SetSize(14, 18)
 	end
 
 	S:SecureHookScript(DBM_GUI_OptionsFrame, "OnShow", function(self)
 		if backportVersion2 then
 			DBM_GUI_OptionsFrameList:StripTextures()
 			DBM_GUI_OptionsFrameList:SetTemplate("Transparent")
-
-			DBM_GUI_OptionsFrameListList:StripTextures()
 			S:HandleScrollBar(DBM_GUI_OptionsFrameListListScrollBar)
 			DBM_GUI_OptionsFrameListListScrollBar:Point("TOPRIGHT", 1, -18)
 			DBM_GUI_OptionsFrameListListScrollBar:Point("BOTTOMLEFT", 7, 18)

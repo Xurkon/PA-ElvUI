@@ -1,8 +1,4 @@
 local E, L, V, P, G = unpack(ElvUI)
-
--- Skip if EmbedSystem module already exists (integrated in ElvUI core)
-if E:GetModule("EmbedSystem", true) then return end
-
 local EMB = E:NewModule("EmbedSystem")
 local AS = E:GetModule("AddOnSkins")
 

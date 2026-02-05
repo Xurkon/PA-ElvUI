@@ -11,8 +11,7 @@ local hooksecurefunc = hooksecurefunc
 -- AckisRecipeList 2.01.14
 -- https://www.curseforge.com/wow/addons/arl/files/458020
 
--- Event name uses "_Skin" suffix to avoid duplicate registration errors
-S:AddCallbackForAddon("AckisRecipeList", "AckisRecipeList_Skin", function()
+S:AddCallbackForAddon("AckisRecipeList", "AckisRecipeList", function()
 	if not E.private.addOnSkins.AckisRecipeList then return end
 
 	local addon = LibStub("AceAddon-3.0"):GetAddon("Ackis Recipe List", true)
@@ -76,9 +75,8 @@ S:AddCallbackForAddon("AckisRecipeList", "AckisRecipeList_Skin", function()
 		end
 	end)
 
-	if not S:IsHooked(addon, "Scan") then
-		S:SecureHook(addon, "Scan", function(self)
-			S:Unhook(self, "Scan")
+	S:SecureHook(addon, "Scan", function(self)
+		S:Unhook(self, "Scan")
 
 		local ARL_MainPanel = ARL_MainPanel
 
@@ -349,7 +347,6 @@ S:AddCallbackForAddon("AckisRecipeList", "AckisRecipeList_Skin", function()
 			ExpansionButton(ARL_MainPanel.filter_menu.rep.toggle_expansion2)
 		end)
 	end)
-	end
 
 	ARLCopyFrame:StripTextures()
 	ARLCopyFrame:SetTemplate("Transparent")

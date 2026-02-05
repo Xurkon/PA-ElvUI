@@ -1793,29 +1793,10 @@ function AceConfigDialog:FeedGroup(appName,options,container,rootframe,path, isR
 			tree:SetCallback("OnButtonEnter", TreeOnButtonEnter)
 			tree:SetCallback("OnButtonLeave", TreeOnButtonLeave)
 
-			-- ElvUI: Save tree width to global settings on resize
-			tree:SetCallback("OnTreeResize", function(widget, event, width)
-				if ElvUI then
-					local E = unpack(ElvUI)
-					if E and E.global and E.global.general and E.global.general.AceGUI then
-						E.global.general.AceGUI.treeWidth = width
-					end
-				end
-			end)
-
 			local status = AceConfigDialog:GetStatusTable(appName, path)
 			if not status.groups then
 				status.groups = {}
 			end
-
-			-- ElvUI: Restore saved tree width from global settings
-			if ElvUI then
-				local E = unpack(ElvUI)
-				if E and E.global and E.global.general and E.global.general.AceGUI and E.global.general.AceGUI.treeWidth then
-					status.groups.treewidth = E.global.general.AceGUI.treeWidth
-				end
-			end
-
 			local treedefinition = BuildGroups(group, options, path, appName, true)
 			tree:SetStatusTable(status.groups)
 

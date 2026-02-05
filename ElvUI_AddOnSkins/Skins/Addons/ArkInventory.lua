@@ -12,8 +12,7 @@ local format = string.format
 -- ArkInventory 3.02.54
 -- https://www.wowace.com/projects/ark-inventory/files/458795
 
--- Event name uses "_Skin" suffix to avoid duplicate registration errors
-S:AddCallbackForAddon("ArkInventory", "ArkInventory_Skin", function()
+S:AddCallbackForAddon("ArkInventory", "ArkInventory", function()
 	if not E.private.addOnSkins.ArkInventory then return end
 
 	local function skinIcon(frame)
@@ -210,8 +209,7 @@ S:AddCallbackForAddon("ArkInventory", "ArkInventory_Skin", function()
 	AS:SkinLibrary("ArkDewdrop-3.0")
 end)
 
--- Event name uses "_Skin" suffix to avoid duplicate registration errors
-S:AddCallbackForAddon("ArkInventoryRules", "ArkInventoryRules_Skin", function()
+S:AddCallbackForAddon("ArkInventoryRules", "ArkInventoryRules", function()
 	if not E.private.addOnSkins.ArkInventory then return end
 
 	ArkInventoryRules.Frame_Rules_Paint_Border = E.noop

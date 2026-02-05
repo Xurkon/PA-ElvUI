@@ -1370,7 +1370,7 @@ local function UpdateFilterGroup()
 end
 
 E.Options.args.filters = {
-	order = 80, -- Alphabetical: F
+	order = -10, --Always Last Hehehe
 	type = "group",
 	name = L["FILTERS"],
 	args = {

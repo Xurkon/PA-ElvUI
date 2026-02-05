@@ -2,21 +2,9 @@ local E, _, V, P, G = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, Profi
 local C, L = unpack(select(2, ...))
 local mod = E:GetModule("DataBars")
 
--- Create parent Data group if it doesn't exist
-if not E.Options.args.data then
-	E.Options.args.data = {
-		order = 70, -- Alphabetical: D (Data)
-		type = "group",
-		name = "Data",
-		childGroups = "tab",
-		args = {}
-	}
-end
-
-E.Options.args.data.args.databars = {
+E.Options.args.databars = {
 	type = "group",
 	name = L["DataBars"],
-	order = 1,
 	childGroups = "tab",
 	get = function(info) return E.db.databars[info[#info]] end,
 	set = function(info, value) E.db.databars[info[#info]] = value end,

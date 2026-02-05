@@ -15,8 +15,7 @@ local GetItemQualityColor = GetItemQualityColor
 -- Auctionator 2.6.3
 -- https://www.curseforge.com/wow/addons/auctionator/files/426882
 
--- Event name uses "_Skin" suffix to avoid duplicate registration errors
-S:AddCallbackForAddon("Auctionator", "Auctionator_Skin", function()
+S:AddCallbackForAddon("Auctionator", "Auctionator", function()
 	if not E.private.addOnSkins.Auctionator then return end
 
 	-- Error Frame
@@ -156,9 +155,8 @@ S:AddCallbackForAddon("Auctionator", "Auctionator_Skin", function()
 		pushed:SetVertexColor(0.9, 0.9, 0.9, 0.35)
 	end
 
-	if not S:IsHooked("Atr_Init") then
-		S:SecureHook("Atr_Init", function()
-			S:Unhook("Atr_Init")
+	S:SecureHook("Atr_Init", function()
+		S:Unhook("Atr_Init")
 
 		if not E.private.skins.blizzard.enable or not E.private.skins.blizzard.auctionhouse then
 			for i = AuctionFrame.numTabs - 2, AuctionFrame.numTabs do
@@ -371,7 +369,7 @@ S:AddCallbackForAddon("Auctionator", "Auctionator_Skin", function()
 			Atr_CancelAllUndercutsButton:Point("TOPLEFT", 7, -394)
 		end
 	end)
-	end
+
 	-- Config
 	Atr_BasicOptionsFrame:SetTemplate("Transparent")
 	Atr_TooltipsOptionsFrame:SetTemplate("Transparent")

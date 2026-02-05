@@ -7,8 +7,7 @@ if not AS:IsAddonLODorEnabled("Quartz") then return end
 -- Quartz 3.0.3.1
 -- https://www.wowace.com/projects/quartz/files/441489
 
--- Event name uses "_Skin" suffix to avoid duplicate registration errors
-S:AddCallbackForAddon("Quartz", "Quartz_Skin", function()
+S:AddCallbackForAddon("Quartz", "Quartz", function()
 	if not E.private.addOnSkins.Quartz then return end
 
 	local Quartz3 = LibStub("AceAddon-3.0"):GetAddon("Quartz3", true)

@@ -2744,7 +2744,6 @@ local function GetOptionsTable_Cutaway(updateFunc, groupName, numGroup)
 end
 
 E.Options.args.unitframe = {
-	order = 170, -- Alphabetical: U
 	type = "group",
 	name = L["UnitFrames"],
 	childGroups = "tree",

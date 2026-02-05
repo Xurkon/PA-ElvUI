@@ -1,14 +1,4 @@
 local E, L, V, P, G = unpack(ElvUI)
-
--- Check if ElvUI_AddOnSkins module was created by our core.lua
--- If core.lua returned early (ElvUI has built-in AddOnSkins), skip loading these utilities
--- We use a special marker to detect this
-if not E.AddOnSkinsExternalModule then
-	-- This is ElvUI's built-in AddOnSkins, not ours - skip loading
-	ElvUI_AddOnSkins_Skip = true
-	return
-end
-
 local AS = E:GetModule("AddOnSkins")
 
 local ipairs = ipairs

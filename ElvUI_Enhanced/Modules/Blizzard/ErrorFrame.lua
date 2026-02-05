@@ -22,7 +22,7 @@ function mod:ErrorFrameSize(db)
 end
 
 function mod:CustomErrorFrameToggle()
-	if E.db.enhanced.blizzard and E.db.enhanced.blizzard.errorFrame and E.db.enhanced.blizzard.errorFrame.enable then
+	if E.db.enhanced.blizzard.errorFrame.enable then
 		self:ErrorFrameSize()
 		E:EnableMover(UIErrorsFrame.mover:GetName())
 	else

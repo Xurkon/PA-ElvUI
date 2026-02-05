@@ -128,8 +128,6 @@ function MBG:GetVisibleList()
 end
 
 function MBG:GrabMinimapButtons()
-	if IsAddOnLoaded("MinimapButtonFrame") and E.db.general.minimap.mbfControlEnabled then return end
-
 	for _, frame in ipairs(self.minimapFrames) do
 		for i = 1, frame:GetNumChildren() do
 			local object = select(i, frame:GetChildren())
@@ -235,42 +233,6 @@ function MBG:SkinMinimapButton(button)
 	tinsert(self.skinnedButtons, button)
 
 	self.needUpdate = true
-end
-
-function MBG:ReleaseButtonsToMBF()
-	for _, button in ipairs(self.skinnedButtons) do
-		if button then
-			self:UnlockButton(button)
-			if button.__MBGOriginalParent then
-				button:SetParent(button.__MBGOriginalParent)
-			end
-			button:SetScript("OnDragStart", nil)
-			button:SetScript("OnDragStop", nil)
-			button:SetScript("OnEnter", nil)
-			button:SetScript("OnLeave", nil)
-			button.isSkinned = false
-		end
-	end
-	self.skinnedButtons = {}
-	self.frame:Hide()
-	self.needUpdate = false
-end
-
-function MBG:HandleEnableState()
-	local mbfLoaded = IsAddOnLoaded("MinimapButtonFrame")
-	if mbfLoaded and E.db.general.minimap.mbfControlEnabled then
-		self:ReleaseButtonsToMBF()
-		return
-	end
-	-- If not MBF controlled, proceed with normal updates
-	if E.private.enhanced.minimapButtonGrabber then
-		self.frame:Show()
-		self:GrabMinimapButtons()
-	end
-end
-
-function MBG:UpdateForAll()
-	self:HandleEnableState()
 end
 
 function MBG:UpdateLayout()
@@ -490,7 +452,7 @@ function MBG:Initialize()
 	self:ToggleMouseover()
 	self:UpdateAlpha()
 	self:UpdatePosition()
-	self:HandleEnableState()
+	self:GrabMinimapButtons()
 
 	self:ScheduleRepeatingTimer("GrabMinimapButtons", 5)
 

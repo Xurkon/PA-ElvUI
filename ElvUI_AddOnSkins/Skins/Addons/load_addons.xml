@@ -1,5 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="_SkipGuard.lua"/>
 	<Script file="sexyCooldown.lua"/>
 	<Script file="recount.lua"/>
 	<Script file="omen.lua"/>

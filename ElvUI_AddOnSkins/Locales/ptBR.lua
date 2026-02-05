@@ -3,14 +3,12 @@ local L = E.Libs.ACL:NewLocale("ElvUI", "ptBR")
 
 L["AddOn Skins"] = true
 L["AuraBar Backdrop"] = true
-L["Bar Text Y-Offset"] = "Deslocamento vertical do texto da barra"
 L["DBM Half-bar Skin"] = "Skin Meia-barra para DBM"
 L["Default"] = true
 L["Double"] = true
 L["Embed Type"] = true
 L["Font Size"] = true
 L["Icon Cooldown"] = true
-L["Icon X-Offset"] = "Deslocamento horizontal do ícone"
 L["Left Panel"] = true
 L["Left Window Width"] = true
 L["Misc Options"] = true

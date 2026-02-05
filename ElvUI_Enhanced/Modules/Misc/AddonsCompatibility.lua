@@ -73,6 +73,7 @@ local addonFixes = {
 			self.addonEnabled = true
 			self.frame:Show()
 		end
+
 		function clcret:Disable()
 			self.addonEnabled = false
 			self.frame:Hide()
@@ -82,10 +83,12 @@ local addonFixes = {
 			if not self.addonEnabled then return end
 			self.frame:Hide()
 		end
+
 		function clcret:PLAYER_REGEN_DISABLED()
 			if not self.addonEnabled then return end
 			self.frame:Hide()
 		end
+
 		function clcret:PLAYER_TARGET_CHANGED()
 			if not self.addonEnabled then return end
 
@@ -162,17 +165,31 @@ local addonFixes = {
 			E:RegisterCooldown(self.icons[#self.icons].cooldown)
 		end)
 
-		for _, icon in ipairs(OmniBar.icons) do
-			E:RegisterCooldown(icon.cooldown)
+		if OmniBar.icons then
+			for _, icon in ipairs(OmniBar.icons) do
+				E:RegisterCooldown(icon.cooldown)
+			end
+		elseif OmniBar.bars then
+			for _, bar in ipairs(OmniBar.bars) do
+				if bar.icons then
+					for _, icon in ipairs(bar.icons) do
+						E:RegisterCooldown(icon.cooldown)
+					end
+				end
+			end
 		end
 	end,
 }
 
 function AC:AddAddon(addon, func)
 	if type(addon) ~= "string" then
-		error(string.format("bad argument #1 to 'AddAddon' (string expected, got %s)", addon ~= nil and type(addon) or "no value"), 2)
+		error(
+		string.format("bad argument #1 to 'AddAddon' (string expected, got %s)",
+			addon ~= nil and type(addon) or "no value"), 2)
 	elseif func and type(func) ~= "function" then
-		error(string.format("bad argument #2 to 'AddAddon' (function expected, got %s)", func ~= nil and type(func) or "no value"), 2)
+		error(
+		string.format("bad argument #2 to 'AddAddon' (function expected, got %s)",
+			func ~= nil and type(func) or "no value"), 2)
 	end
 
 	if not self.initialized then

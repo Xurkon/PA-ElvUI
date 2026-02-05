@@ -20,7 +20,7 @@ function DT:PanelLayoutOptions()
 	datatexts[""] = L["NONE"]
 
 	local order
-	local table = E.Options.args.data.args.datatexts.args.panels.args
+	local table = E.Options.args.datatexts.args.panels.args
 	for pointLoc, tab in pairs(P.datatexts.panels) do
 		if not _G[pointLoc] then table[pointLoc] = nil return end
 		if type(tab) == "table" then
@@ -56,21 +56,9 @@ function DT:PanelLayoutOptions()
 	end
 end
 
--- Create parent Data group if it doesn't exist
-if not E.Options.args.data then
-	E.Options.args.data = {
-		type = "group",
-		name = "Data",
-		order = 50,
-		childGroups = "tab",
-		args = {}
-	}
-end
-
-E.Options.args.data.args.datatexts = {
+E.Options.args.datatexts = {
 	type = "group",
 	name = L["DataTexts"],
-	order = 2,
 	childGroups = "tab",
 	get = function(info) return E.db.datatexts[info[#info]] end,
 	set = function(info, value) E.db.datatexts[info[#info]] = value DT:LoadDataTexts() end,

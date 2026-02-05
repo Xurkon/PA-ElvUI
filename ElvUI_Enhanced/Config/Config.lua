@@ -824,20 +824,8 @@ local function MinimapOptions()
 					E.db.enhanced.minimap.buttonGrabber[info[#info]] = value
 					MBG:UpdateLayout()
 				end,
-				disabled = function() 
-					local mbfActive = IsAddOnLoaded("MinimapButtonFrame") and E.db.general.minimap and E.db.general.minimap.mbfControlEnabled
-					return not E.private.enhanced.minimapButtonGrabber or mbfActive
-				end,
+				disabled = function() return not E.private.enhanced.minimapButtonGrabber end,
 				args = {
-					mbfDisclaimer = {
-						order = 0.5,
-						type = "description",
-						name = "|cffFF0000" .. L["Minimap Button Frame has current control over minimap buttons, change in ElvUI>Maps>Minimap to disable."] .. "|r",
-						hidden = function() 
-							local mbfActive = IsAddOnLoaded("MinimapButtonFrame") and E.db.general.minimap and E.db.general.minimap.mbfControlEnabled
-							return not mbfActive 
-						end
-					},
 					enable = {
 						order = 1,
 						type = "toggle",
@@ -851,10 +839,7 @@ local function MinimapOptions()
 								E:StaticPopup_Show("PRIVATE_RL")
 							end
 						end,
-						disabled = function() 
-							local mbfActive = IsAddOnLoaded("MinimapButtonFrame") and E.db.general.minimap and E.db.general.minimap.mbfControlEnabled
-							return mbfActive
-						end
+						disabled = false
 					},
 					spacer = {
 						order = 2,
@@ -904,10 +889,7 @@ local function MinimapOptions()
 						name = L["Backdrop Spacing"],
 						desc = L["The spacing between the backdrop and the buttons."],
 						min = -1, max = 15, step = 1,
-						disabled = function() 
-							local mbfActive = IsAddOnLoaded("MinimapButtonFrame") and E.db.general.minimap and E.db.general.minimap.mbfControlEnabled
-							return not E.private.enhanced.minimapButtonGrabber or not E.db.enhanced.minimap.buttonGrabber.backdrop or mbfActive 
-						end,
+						disabled = function() return not E.private.enhanced.minimapButtonGrabber or not E.db.enhanced.minimap.buttonGrabber.backdrop end,
 					},
 					mouseover = {
 						order = 9,
@@ -939,19 +921,13 @@ local function MinimapOptions()
 							E.db.enhanced.minimap.buttonGrabber.insideMinimap[info[#info]] = value
 							MBG:UpdatePosition()
 						end,
-						disabled = function() 
-							local mbfActive = IsAddOnLoaded("MinimapButtonFrame") and E.db.general.minimap and E.db.general.minimap.mbfControlEnabled
-							return not E.db.enhanced.minimap.buttonGrabber.insideMinimap.enable or mbfActive 
-						end,
+						disabled = function() return not E.db.enhanced.minimap.buttonGrabber.insideMinimap.enable end,
 						args = {
 							enable = {
 								order = 1,
 								type = "toggle",
 								name = L["Enable"],
-								disabled = function() 
-									local mbfActive = IsAddOnLoaded("MinimapButtonFrame") and E.db.general.minimap and E.db.general.minimap.mbfControlEnabled
-									return not E.private.enhanced.minimapButtonGrabber or mbfActive 
-								end
+								disabled = function() return not E.private.enhanced.minimapButtonGrabber end
 							},
 							position = {
 								order = 2,

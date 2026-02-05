@@ -51,7 +51,7 @@ local nameIndex = {
 	[L["Global"]] = 0
 }
 
-E.Options.args.search = ACH:Group(L["Search"], nil, 1) -- Always at top
+E.Options.args.search = ACH:Group(L["Search"], nil, 4)
 local Search =  E.Options.args.search.args
 
 local EditBox = ACH:Input(L["Search"], nil, 0, nil, 1.5, function() return SearchText end, function(_, value) C:Search_ClearResults() if strmatch(value, '%S+') then SearchText = strtrim(strlower(value)) C:Search_Config() C:Search_AddResults() end end)
@@ -207,7 +207,7 @@ function C:Search_Config(tbl, loc, locName, whatsNew)
 					end
 				else
 					local values = (typeValue[infoTable.type] and not infoTable.dialogControl) and C:Search_GetReturn(infoTable.values, option)
-					if values and type(values) == 'table' then
+					if values then
 						for _, subName in next, values do
 							if type(subName) == 'string' and C:Search_FindText(subName, whatsNew) then
 								searchCache[location] = locationName

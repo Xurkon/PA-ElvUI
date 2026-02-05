@@ -1,3 +1,0 @@
-
-- Added documentation folder and home page.
-

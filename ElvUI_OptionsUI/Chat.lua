@@ -9,7 +9,6 @@ local gsub, strlower = string.gsub, string.lower
 local tabSelectorTable = {}
 
 E.Options.args.chat = {
-	order = 40, -- Alphabetical: C
 	type = "group",
 	name = L["Chat"],
 	childGroups = "tab",

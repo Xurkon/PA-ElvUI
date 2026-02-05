@@ -15,8 +15,7 @@ local INBOXITEMS_TO_DISPLAY = INBOXITEMS_TO_DISPLAY
 -- Postal r299
 -- https://www.wowace.com/projects/postal/files/454610
 
--- Event name uses "_Skin" suffix to avoid duplicate registration errors
-S:AddCallbackForAddon("Postal", "Postal_Skin", function()
+S:AddCallbackForAddon("Postal", "Postal", function()
 	if not E.private.addOnSkins.Postal then return end
 
 	local Postal = LibStub("AceAddon-3.0"):GetAddon("Postal", true)
@@ -27,33 +26,21 @@ S:AddCallbackForAddon("Postal", "Postal_Skin", function()
 	Postal_ModuleMenuButton:Size(26)
 
 	hooksecurefunc(Postal, "CreateAboutFrame", function(self)
-		-- Postal v3.3.2 uses local aboutFrame, not self.aboutFrame
-		-- Use the global PostalAboutFrame instead
-		local aboutFrame = _G["PostalAboutFrame"]
-		if not aboutFrame then return end
+		self.aboutFrame:SetTemplate("Transparent")
 
-		aboutFrame:SetTemplate("Transparent")
+		PostalAboutScroll:Point("TOPLEFT", 8, -26)
+		PostalAboutScroll:Point("BOTTOMRIGHT", -29, 8)
 
-		if PostalAboutScroll then
-			PostalAboutScroll:Point("TOPLEFT", 8, -26)
-			PostalAboutScroll:Point("BOTTOMRIGHT", -29, 8)
-		end
+		S:HandleScrollBar(PostalAboutScrollScrollBar)
+		PostalAboutScrollScrollBar:Point("TOPLEFT", PostalAboutScroll, "TOPRIGHT", 3, -19)
+		PostalAboutScrollScrollBar:Point("BOTTOMLEFT", PostalAboutScroll, "BOTTOMRIGHT", 3, 19)
 
-		if PostalAboutScrollScrollBar then
-			S:HandleScrollBar(PostalAboutScrollScrollBar)
-			PostalAboutScrollScrollBar:Point("TOPLEFT", PostalAboutScroll, "TOPRIGHT", 3, -19)
-			PostalAboutScrollScrollBar:Point("BOTTOMLEFT", PostalAboutScroll, "BOTTOMRIGHT", 3, 19)
-		end
+		self.aboutFrame.editBox:Width(461)
+		self.aboutFrame.editBox:Point("TOPLEFT", 1, -1)
 
-		if aboutFrame.editBox then
-			aboutFrame.editBox:Width(461)
-			aboutFrame.editBox:Point("TOPLEFT", 1, -1)
-		end
-
-		local closeButton = select(2, aboutFrame:GetChildren())
+		local closeButton = select(2, PostalAboutFrame:GetChildren())
 		if closeButton then
-			-- Wrap in pcall to prevent taint errors with UIPanelCloseButton template
-			pcall(S.HandleCloseButton, S, closeButton, aboutFrame)
+			S:HandleCloseButton(closeButton, PostalAboutFrame)
 		end
 	end)
 
@@ -109,8 +96,7 @@ S:AddCallbackForAddon("Postal", "Postal_Skin", function()
 			for i = 1, 7 do
 				local returnIcon = _G["MailItem"..i.."ExpireTime"].returnicon
 				returnIcon:StripTextures(true)
-				-- Wrap in pcall to prevent taint errors with secure button templates
-				pcall(S.HandleCloseButton, S, returnIcon)
+				S:HandleCloseButton(returnIcon)
 				returnIcon:Size(26)
 				returnIcon:ClearAllPoints()
 				returnIcon:Point("TOPRIGHT", 32, -3)

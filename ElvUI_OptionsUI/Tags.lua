@@ -5,7 +5,7 @@ local ACH = E.Libs.ACH
 local _G = _G
 local format = format
 
-local TagGroup = ACH:Group(L["Available Tags"], nil, 140) -- Alphabetical: T (Tags)
+local TagGroup = ACH:Group(L["Available Tags"], nil, 19)
 TagGroup.args.GuideLink = ACH:Input(L["Guide:"], nil, 1, nil, 310, function() return 'https://github.com/tukui-org/ElvUI/wiki/custom-texts' end)
 TagGroup.args.WikiLink = ACH:Input(L["Wiki:"], nil, 2, nil, 290, function() return 'https://github.com/tukui-org/ElvUI/wiki' end)
 TagGroup.args.ColorWheel = ACH:Execute(L["Color Picker"], nil, 3, function() _G.ColorPickerFrame:Show() _G.ColorPickerFrame:SetFrameStrata('FULLSCREEN_DIALOG') _G.ColorPickerFrame:SetClampedToScreen(true) _G.ColorPickerFrame:Raise() end, nil, nil, 120)

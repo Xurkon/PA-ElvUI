@@ -7,12 +7,10 @@ if not AS:IsAddonLODorEnabled("BugSack") then return end
 -- BugSack r229
 -- https://www.curseforge.com/wow/addons/bugsack/files/448833
 
--- Event name uses "_Skin" suffix to avoid duplicate registration errors
-S:AddCallbackForAddon("BugSack", "BugSack_Skin", function()
+S:AddCallbackForAddon("BugSack", "BugSack", function()
 	if not E.private.addOnSkins.BugSack then return end
 
-	if not S:IsHooked(BugSack, "OpenSack") then
-		S:SecureHook(BugSack, "OpenSack", function()
+	S:SecureHook(BugSack, "OpenSack", function()
 		BugSackFrame:StripTextures()
 		BugSackFrame:SetTemplate("Transparent")
 
@@ -41,5 +39,4 @@ S:AddCallbackForAddon("BugSack", "BugSack_Skin", function()
 
 		S:Unhook(BugSack, "OpenSack")
 	end)
-	end
 end)

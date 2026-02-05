@@ -7,21 +7,15 @@ if not AS:IsAddonLODorEnabled("AllStats") then return end
 -- All Stats 1.1
 -- https://www.curseforge.com/wow/addons/all-stats/files/430951
 
--- Event name uses "_Skin" suffix to avoid duplicate registration errors
-S:AddCallbackForAddon("AllStats", "AllStats_Skin", function()
+S:AddCallbackForAddon("AllStats", "AllStats", function()
 	if not E.private.addOnSkins.AllStats then return end
 
 	AllStatsFrame:StripTextures()
 	AllStatsFrame:SetTemplate("Transparent")
 	AllStatsFrame:Height(424)
-	AllStatsFrame:Point("TOPLEFT", PaperDollFrame, "TOPLEFT", 351, -12)
+	AllStatsFrame:Point("TOPLEFT", AscensionCharacterFrame, "TOPRIGHT", 2, -6)
 
 	S:HandleButton(AllStatsButtonShowFrame)
 	AllStatsButtonShowFrame:Height(21)
-
-	if CharacterFrameExpandButton then
-		AllStatsButtonShowFrame:Point("BOTTOMRIGHT", -40, 84)
-	else
-		AllStatsButtonShowFrame:Point("BOTTOMRIGHT", -60, 84)
-	end
+	AllStatsButtonShowFrame:Point("BOTTOMRIGHT", 20, -22)
 end)

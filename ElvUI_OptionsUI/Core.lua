@@ -230,7 +230,7 @@ do
 	)
 
 	E.Options.args.credits = {
-		order = 999, -- Always last
+		order = -1,
 		type = "group",
 		name = L["Credits"],
 		args = {

@@ -30,11 +30,9 @@ sort(sortedClasses)
 
 C.StyleFilterSelected = nil
 
-E.Options.args.nameplate.args.stylefilters = ACH:Group(L["Style Filter"], nil, 10, 'tab', nil, nil, function() return not E.NamePlates.Initialized end)
-local StyleFilters = E.Options.args.nameplate.args.stylefilters.args
-local StyleFallback = {}
-NP:StyleFilterCopyDefaults(StyleFallback)
-local TriggerConditions = NP.TriggerConditions or {}
+E.Options.args.nameplates.args.stylefilters = ACH:Group(L["Style Filter"], nil, 10, 'tab', nil, nil, function() return not E.NamePlates.Initialized end)
+local StyleFilters = E.Options.args.nameplates.args.stylefilters.args
+local StyleFallback = NP:StyleFilterCopyDefaults()
 
 local function GetFilter(collect, profile)
 	local setting = (profile and E.db.nameplates.filters[C.StyleFilterSelected]) or E.global.nameplates.filters[C.StyleFilterSelected] or StyleFallback
@@ -192,7 +190,7 @@ function C:StyleFilterSetConfig(filter)
 	C.StyleFilterSelected = filter
 	UpdateFilterGroup()
 
-	E.Libs.AceConfigDialog:SelectGroup('ElvUI', 'nameplate', 'stylefilters', filter and 'triggers' or 'import')
+	E.Libs.AceConfigDialog:SelectGroup('ElvUI', 'nameplates', 'stylefilters', filter and 'triggers' or 'import')
 end
 
 local function validateCreateFilter(_, value) return not (strmatch(value, '^[%s%p]-$') or E.global.nameplates.filters[value]) end
@@ -515,7 +513,7 @@ StyleFilters.triggers.args.nameplateType.args.enable = ACH:Toggle(L["Enable"], n
 StyleFilters.triggers.args.nameplateType.args.types = ACH:Group('', nil, 1, nil, function(info) local triggers = GetFilter(true) return triggers.nameplateType[info[#info]] end, function(info, value) local triggers = GetFilter(true) triggers.nameplateType[info[#info]] = value NP:ConfigureAll() end, function() local triggers = GetFilter(true) return DisabledFilter() or not triggers.nameplateType.enable end)
 StyleFilters.triggers.args.nameplateType.args.types.inline = true
 
-for frameType, keyName in next, TriggerConditions.frameTypes or {} do
+for frameType, keyName in next, E.NamePlates.TriggerConditions.frameTypes do
 	StyleFilters.triggers.args.nameplateType.args.types.args[keyName] = ACH:Toggle(L[frameType == 'PLAYER' and 'Player' or frameType])
 end
 
@@ -525,7 +523,7 @@ StyleFilters.triggers.args.reactionType.args.reputation = ACH:Toggle(L["Reputati
 StyleFilters.triggers.args.reactionType.args.types = ACH:Group('', nil, 2, nil, nil, nil, function() local triggers = GetFilter(true) return DisabledFilter() or not triggers.reactionType.enable end)
 StyleFilters.triggers.args.reactionType.args.types.inline = true
 
-for i, reactionType in next, TriggerConditions.reactions or {} do
+for i, reactionType in next, E.NamePlates.TriggerConditions.reactions do
 	StyleFilters.triggers.args.reactionType.args.types.args[reactionType] = ACH:Toggle(L["FACTION_STANDING_LABEL"..i], nil, i)
 end
 
@@ -553,7 +551,7 @@ do -- build creatureType options
 		['Non-combat Pet'] = 16
 	}
 
-	for k, v in next, (E.CreatureTypes or {}) do
+	for k, v in next, E.CreatureTypes do
 		StyleFilters.triggers.args.creatureType.args.types.args[v] = ACH:Toggle(k, nil, creatureTypeOrder[v], nil, nil, nil, nil, nil, function() local triggers = GetFilter(true) return DisabledFilter() or not triggers.creatureType.enable end)
 	end
 end
@@ -629,7 +627,7 @@ StyleFilters.triggers.args.raidTarget = ACH:Group(L["BINDING_HEADER_RAID_TARGET"
 StyleFilters.triggers.args.raidTarget.args.types = ACH:Group('')
 StyleFilters.triggers.args.raidTarget.args.types.inline = true
 
-for i, iconName in next, TriggerConditions.raidTargets or {} do
+for i, iconName in next, E.NamePlates.TriggerConditions.raidTargets do
 	StyleFilters.triggers.args.raidTarget.args.types.args[iconName] = ACH:Toggle(format(raidTargetIcon, i, L["RAID_TARGET_"..i]), nil, i)
 end
 

@@ -7,8 +7,7 @@ if not AS:IsAddonLODorEnabled("Mapster") then return end
 -- Mapster 1.3.9
 -- https://www.wowace.com/projects/mapster/files/436697
 
--- Event name uses "_Skin" suffix to avoid duplicate registration errors
-S:AddCallbackForAddon("Mapster", "Mapster_Skin", function()
+S:AddCallbackForAddon("Mapster", "Mapster", function()
 	if not E.private.addOnSkins.Mapster then return end
 
 	local Mapster = LibStub("AceAddon-3.0"):GetAddon("Mapster", true)
@@ -103,13 +102,27 @@ S:AddCallbackForAddon("Mapster", "Mapster_Skin", function()
 		WorldMapDetailFrame.backdrop:Hide()
 	end
 
+	-- Position Mapster Options Button based on map size
+	local function updateMapsterButtonPosition()
+		MapsterOptionsButton:ClearAllPoints()
+		if Mapster.miniMap or (WORLDMAP_SETTINGS and WORLDMAP_SETTINGS.size == WORLDMAP_WINDOWED_SIZE) then
+			-- Minimized map - anchor to SizeUpButton
+			MapsterOptionsButton:Point("RIGHT", WorldMapFrameSizeUpButton, "LEFT", -4, 0)
+		else
+			-- Maximized map - anchor to SizeDownButton
+			MapsterOptionsButton:Point("RIGHT", WorldMapFrameSizeDownButton, "LEFT", -4, 0)
+		end
+	end
+
 	local function sizeDown()
 		WorldMapFrame.backdrop:Point("TOPLEFT", WorldMapDetailFrame, "TOPLEFT", -14, 27)
 		WorldMapDetailFrame.backdrop:Hide()
+		updateMapsterButtonPosition()
 	end
 	local function sizeUp()
 		WorldMapFrame.backdrop:Point("TOPLEFT", WorldMapDetailFrame, "TOPLEFT", -14, 70)
 		WorldMapDetailFrame.backdrop:Show()
+		updateMapsterButtonPosition()
 	end
 
 	S:SecureHook(Mapster, "SizeDown", sizeDown)
@@ -129,12 +142,10 @@ S:AddCallbackForAddon("Mapster", "Mapster_Skin", function()
 		end
 	end)
 
-	MapsterOptionsButton:Point("TOPRIGHT", WorldMapPositioningGuide, "TOPRIGHT", -50, -3)
-	MapsterOptionsButton.SetPoint = E.noop
+	S:HandleButton(MapsterOptionsButton)
+	updateMapsterButtonPosition()
 
 	MapsterQuestObjectivesDropDown:Point("BOTTOMRIGHT", WorldMapPositioningGuide, "BOTTOMRIGHT", -7, -4)
-
-	S:HandleButton(MapsterOptionsButton)
 	S:HandleDropDownBox(MapsterQuestObjectivesDropDown)
 
 	do -- Scaler

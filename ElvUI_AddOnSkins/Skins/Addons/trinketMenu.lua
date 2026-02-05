@@ -10,8 +10,7 @@ local unpack = unpack
 -- TrinketMenu 3.81
 -- https://www.curseforge.com/wow/addons/trinket-menu/files/305868
 
--- Event name uses "_Skin" suffix to avoid duplicate registration errors
-S:AddCallbackForAddon("TrinketMenu", "TrinketMenu_Skin", function()
+S:AddCallbackForAddon("TrinketMenu", "TrinketMenu", function()
 	if not E.private.addOnSkins.TrinketMenu then return end
 
 --	TrinketMenu_TimersFrame:SetScript("OnUpdate", nil)
@@ -43,7 +42,8 @@ S:AddCallbackForAddon("TrinketMenu", "TrinketMenu_Skin", function()
 
 		AB:StyleButton(button)
 
-		E:RegisterCooldown(cooldown)
+		cooldown.timer = E:CreateCooldownTimer(cooldown)
+		_G[name .. "Time"] = cooldown.timer.text
 	end
 
 	for i = 0, 1 do

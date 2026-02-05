@@ -1,6 +1,6 @@
 ## Interface: 30300
-## Author: Elv, Bunny, Xius
-## Version: 1.3.6
+## Author: Elv, Bunny
+## Version: 1.10
 ## Title: |cff1784d1E|r|cffe5e3e3lvUI|r |cff1784d1O|r|cffe5e3e3ptionsUI|r
 ## Notes: Options for ElvUI.
 ## RequiredDeps: ElvUI
@@ -12,25 +12,19 @@ Locales\Load_locales.xml
 Core.lua
 General.lua
 ActionBars.lua
-ButtonFacade.lua
-Omen.lua
-Commands.lua
 Auras.lua
 Bags.lua
 Chat.lua
--- Cooldown.lua -- COOLDOWNS DISABLED
+Cooldown.lua
 DataTexts.lua
 Filters.lua
 Nameplates.lua
 StyleFilters.lua
 Skins.lua
 Tooltip.lua
-Enhanced.lua
 UnitFrames.lua
 DataBars.lua
 Maps.lua
-TomTom.lua
-ProfessionMenu.lua
--- ModuleControl.lua -- MODULE CONTROL DISABLED
+ModuleControl.lua
 Tags.lua
 Search.lua

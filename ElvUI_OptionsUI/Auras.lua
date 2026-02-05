@@ -118,7 +118,6 @@ local function GetAuraOptions(headerName)
 end
 
 E.Options.args.auras = {
-	order = 20, -- Alphabetical: A (Auras)
 	type = "group",
 	name = L["BUFFOPTIONS_LABEL"],
 	childGroups = "tab",
@@ -148,6 +147,26 @@ E.Options.args.auras = {
 			set = function(info, value)
 				E.private.auras[info[#info]] = value
 				E:StaticPopup_Show("PRIVATE_RL")
+			end
+		},
+		mergeVanity = {
+			order = 3.1,
+			type = "toggle",
+			name = L["Merge Vanity"],
+			get = function(info) return E.db.auras[info[#info]] end,
+			set = function(info, value)
+				E.db.auras[info[#info]] = value
+				A:triggerUpdateOnNext()
+			end
+		},
+		mergeConsolidated = {
+			order = 3.2,
+			type = "toggle",
+			name = L["Merge Consolidated"],
+			get = function(info) return E.db.auras[info[#info]] end,
+			set = function(info, value)
+				E.db.auras[info[#info]] = value
+				A:triggerUpdateOnNext()
 			end
 		},
 		general = {
@@ -419,148 +438,6 @@ E.Options.args.auras = {
 							name = L["Font Outline"],
 							desc = L["Set the font outline."],
 							values = C.Values.FontFlags
-						}
-					}
-				},
-				customSpellsGroup = {
-					order = 5,
-					type = "group",
-					guiInline = true,
-					name = "Custom Buff Tracking",
-					disabled = function() return not E.db.general.reminder.enable end,
-					args = {
-						description = {
-							order = 1,
-							type = "description",
-							name = "Add custom buffs to track for each reminder slot. Select from your current buffs or manually enter spell names/IDs."
-						},
-						slotSelect = {
-							order = 2,
-							type = "select",
-							name = "Select Reminder Slot",
-							desc = "Choose which reminder slot to customize",
-							width = "normal",
-							values = {
-								[1] = "Slot 1 - Flask/Elixir",
-								[2] = "Slot 2 - Food",
-								[3] = "Slot 3 - Mark of the Wild",
-								[4] = "Slot 4 - Kings",
-								[5] = "Slot 5 - Fortitude",
-								[6] = "Slot 6 - Sanctuary",
-								[7] = "Slot 7 - Int/Might",
-								[8] = "Slot 8 - Stamina",
-								[9] = "Slot 9 - Thorns/Concentration",
-								[10] = "Slot 10 - Wisdom",
-								[11] = "Slot 11 - Crit",
-								[12] = "Slot 12 - Haste",
-								[13] = "Slot 13 - Spirit/AP",
-								[14] = "Slot 14 - Damage"
-							},
-							get = function() return E.private.general.reminderSelectedSlot or 1 end,
-							set = function(info, value) E.private.general.reminderSelectedSlot = value end
-						},
-						addFromCurrentBuffs = {
-							order = 3,
-							type = "select",
-							name = "Add from Current Buffs",
-							desc = "Select a buff that is currently active on your character to add to the selected slot",
-							width = "normal",
-							values = function()
-								local buffs = {}
-								for i = 1, 40 do
-									local name, _, icon = UnitAura("player", i, "HELPFUL")
-									if name then
-										buffs[name] = format("|T%s:16|t %s", icon, name)
-									else
-										break
-									end
-								end
-								return buffs
-							end,
-							get = function() return "" end,
-							set = function(info, value)
-								if value and value ~= "" then
-									local slot = E.private.general.reminderSelectedSlot or 1
-									if not E.db.general.reminder.customSpells[slot] then
-										E.db.general.reminder.customSpells[slot] = {}
-									end
-									E.db.general.reminder.customSpells[slot][value] = true
-									RB:UpdateReminder()
-								end
-							end
-						},
-						addSpell = {
-							order = 4,
-							type = "input",
-							name = "Add Spell Manually",
-							desc = "Manually enter a spell name or spell ID to add to the selected slot",
-							width = "normal",
-							get = function() return "" end,
-							set = function(info, value)
-								if value and value ~= "" then
-									local slot = E.private.general.reminderSelectedSlot or 1
-									if not E.db.general.reminder.customSpells[slot] then
-										E.db.general.reminder.customSpells[slot] = {}
-									end
-									E.db.general.reminder.customSpells[slot][value] = true
-									RB:UpdateReminder()
-								end
-							end
-						},
-						removeSpell = {
-							order = 5,
-							type = "select",
-							name = "Remove Spell",
-							desc = "Select a spell to remove from the selected slot",
-							width = "full",
-							values = function()
-								local slot = E.private.general.reminderSelectedSlot or 1
-								local spells = E.db.general.reminder.customSpells[slot] or {}
-								local values = {}
-								for spell, enabled in pairs(spells) do
-									if enabled then
-										values[spell] = spell
-									end
-								end
-								return values
-							end,
-							get = function() return "" end,
-							set = function(info, value)
-								if value and value ~= "" then
-									local slot = E.private.general.reminderSelectedSlot or 1
-									if E.db.general.reminder.customSpells[slot] then
-										E.db.general.reminder.customSpells[slot][value] = nil
-									end
-									RB:UpdateReminder()
-								end
-							end
-						},
-						spacer = {
-							order = 6,
-							type = "description",
-							name = " "
-						},
-						currentSpells = {
-							order = 7,
-							type = "description",
-							name = function()
-								local slot = E.private.general.reminderSelectedSlot or 1
-								local spells = E.db.general.reminder.customSpells[slot] or {}
-								local count = 0
-								local names = {}
-								for spell, enabled in pairs(spells) do
-									if enabled then
-										count = count + 1
-										table.insert(names, spell)
-									end
-								end
-								if count == 0 then
-									return "|cffAAAAAACurrent tracked spells for this slot: None|r"
-								else
-									table.sort(names)
-									return format("|cff00FF00Current tracked spells (%d):|r\n%s", count, table.concat(names, "\n"))
-								end
-							end
 						}
 					}
 				}
