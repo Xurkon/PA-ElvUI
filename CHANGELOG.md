@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.0.0
+## v1.3.8
 
 ### Fixes
 - **ElvUI_Enhanced**: Fixed compatibility with updated OmniBar.

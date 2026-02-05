@@ -7,7 +7,7 @@
 
 **A comprehensive user interface replacement for World of Warcraft 3.3.5 (WotLK)**
 
-[![Version](https://img.shields.io/badge/version-1.3.6-blue.svg)](https://github.com/Xurkon/PA-ElvUI)
+[![Version](https://img.shields.io/badge/version-1.3.8-blue.svg)](https://github.com/Xurkon/PA-ElvUI)
 [![WoW](https://img.shields.io/badge/WoW-3.3.5a-orange.svg)](https://project-ascension.com)
 
 ## About
@@ -22,10 +22,11 @@ ElvUI is a complete UI replacement featuring action bars, unit frames, nameplate
  - **Ascension Ready**: Tweaked specifically for Project Ascension 3.3.5a.
  - **Performance Focused**: Optimized for smooth gameplay.
 
-## Version 1.3.6
+## Version 1.3.8
 
 ### Recent Changes
 
+- **OmniBar Compatibility** - Fixed `ElvUI_Enhanced` integration with updated OmniBar
 - **Fixed Minimap Button Options** - Calendar, Mail, LFG, PvP, etc. buttons properly enable/disable
 - **Improved MBF Integration** - Options correctly grey out when MBF controls buttons
 - **Persistent Tree Divider** - Options panel divider remembers its position across sessions
