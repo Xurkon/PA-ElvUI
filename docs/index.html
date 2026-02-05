@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PA-ElvUI Documentation</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 800px;
+            margin: 2rem auto;
+            line-height: 1.6;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>PA-ElvUI Monorepo</h1>
+    <p>This repository hosts the tailored ElvUI distribution for Project Ascension.</p>
+
+    <h2>Included Modules</h2>
+    <ul>
+        <li><strong>ElvUI</strong>: Core addon.</li>
+        <li><strong>ElvUI_Enhanced</strong>: QoL improvements (Patched for OmniBar compatibility).</li>
+        <li><strong>ElvUI_AddOnSkins</strong>: Skins for other addons.</li>
+        <li><strong>ElvUI_OptionsUI</strong>: Configuration interface.</li>
+    </ul>
+
+    <h2>Developer Notes</h2>
+    <h3>OmniBar Compatibility</h3>
+    <p><code>ElvUI_Enhanced</code> has been modified to support the latest <code>PA-Omnibar</code> structure. It now
+        correctly iterates over <code>OmniBar.bars</code> instead of looking for a nil <code>OmniBar.icons</code> table.
+    </p>
+</body>
+
+</html>
