@@ -1,4 +1,4 @@
-# PA-ElvUI Changelog
+# PA ElvUI Changelog
 
 ## [Unreleased]
-- Worker relay test commit
+- Worker relay test changelog entry
